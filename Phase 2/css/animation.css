@@ -1,0 +1,30 @@
+.nav-links a:hover{
+    color: var(--nav-link-hover);
+    transform: scale(1.1);
+}
+
+.nav-links a {
+    transition: color 0.3s ease, transform 0.3s ease;
+} 
+
+.service-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 4px 18px var(--card-title);
+}
+
+.service-card {
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover{
+    color: var(--footer-bg);
+    transition: transform 0.3s ease;
+
+}
+
+.cta-container:hover{
+    background-color: var(--cta-hover);
+    border-radius: 30px;
+    transition: transform 0.3s ease;
+    transform: scale(1.1);
+}

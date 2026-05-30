@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prodesk IT - Building Your Digital Edge with Pixel-Perfect Experiences.">
+    <title>Prodesk IT</title>
+    
+    <link rel="stylesheet" href="./src/variables.css">
+    <link rel="stylesheet" href="./src/output.css">
+</head>
+
+<body class="bg-(--bg)">
+
+    <!-- Navbar Section-->
+    <nav
+        class="navbar flex justify-between items-center py-3 px-2.5 h-12.5 box-content sticky top-0 z-100 backdrop-blur-[5px]">
+        <div>
+            <img src="assets/images/logo.png" alt="Prodesk IT" class="h-12.5 bg-(--logo) rounded-[60%]">
+        </div>
+        <div class="nav-links flex gap-12 pr-4 justify-end flex-1">
+
+            <a href="#" class="text-(--nav-link) text[0.9rem] font-medium tracking-[-0.02em]">Home</a>
+            <a href="#" class="text-(--nav-link) text[0.9rem] font-medium tracking-[-0.02em]">About</a>
+            <a href="#" class="text-(--nav-link) text[0.9rem] font-medium tracking-[-0.02em]">Services</a>
+            <a href="#" class="text-(--nav-link) text[0.9rem] font-medium tracking-[-0.02em]">Contact</a>
+        </div>
+        <button
+            class="theme-toggle text-[1.25rem] bg-transparent border-none cursor-pointer text-(--nav-links) h-11.25 w-20 transition-colors-duration-300"
+            id="theme-toggle">🌙</button>
+        <button class="hamburger hidden text-[1.5rem] bg-transparent border-none cursor-pointer text-(--nav-links) "
+            id="hamburger">&#9776;</button>
+    </nav>
+
+
+    <!-- Hero section -->
+    <main class="hero flex pl-[7%] align-center justify-evenly pt-48 pr-[9%] ">
+        <div class="hero-content">
+            <h1
+                class="hero-title flex tracking-[-0.04em] text-(--hero-title) text-[4.75rem] font-extrabold leading-[1.12]">
+                Build Your Digital Edge.</h1>
+            <p
+                class="hero-description font-sans text-[1.25rem] font-bold leading-[1.9rem] mv-12 text-(--hero-description) pt-10 pr-[14%]">
+                We build pixel-perfect digital experiences that
+                scale your brand and drive conversions.By combining robust engineering frameworks with data-driven
+                marketing funnels,
+                we turn complex technical solutions into seamless user journeys that accelerate sustainable growth.</p>
+        </div>
+        <div class="cta-container flex bg-(--cta-btn) rounded-[30px] self-end mb-7">
+
+            <button
+                class="cta-button py-[0.7rem] px-4 whitespace-nowrap cursor-pointer border-none text-[0.85rem] font-bold uppercase tracking-[0.08em] text-(--cta-text)"
+                id="cta-button">
+                Get Started
+            </button>
+        </div>
+    </main>
+
+    <!-- Services section -->
+    <section class="service grid gap-2.5 align-center justify-center p-32">
+        <h2
+            class="service-title align-center flex justify-center text-4xl font-semibold leading-[1.2] mb-16 text-(--service-title) font-sans">
+            Our Services</h2>
+        <div class="service-grid flex flex-row gap-[7vw] justify-center p-16">
+            <div
+                class="service-card p-5 gap-5 w-75 flex flex-col items-center text-center bg-(--card-bg) border-t-[2.2px] border-b border-(--card-title) rounded-xl  ">
+                <h3 class="text-[1.4rem] font-bold leading-[1.3] mb-4 text-(--card-title)">SEO Optimization</h3>
+                <p class="text-[0.95rem] leading-[1.6] font-normal text-(--card-description)">Maximize your visibility
+                    and dominate search rankings.</p>
+            </div>
+            <div
+                class="service-card p-5 gap-5 w-75 flex flex-col items-center text-center bg-(--card-bg) border-t-[2.2px] border-b border-(--card-title) rounded-xl">
+                <h3 class="text-[1.4rem] font-bold leading-[1.3] mb-4 text-(--card-title)">Web Development</h3>
+                <p class="text-[0.95rem] leading-[1.6] font-normal text-(--card-description)">High-performance
+                    engineering meets pixel-perfect execution.</p>
+            </div>
+            <div
+                class="service-card p-5 gap-5 w-75 flex flex-col items-center text-center bg-(--card-bg) border-t-[2.2px] border-b border-(--card-title) rounded-xl">
+                <h3 class="text-[1.4rem] font-bold leading-[1.3] mb-4 text-(--card-title)">Digital Marketing</h3>
+                <p class="text-[0.95rem] leading-[1.6] font-normal text-(--card-description)">Accelerate your brand's
+                    digital footprint through our strategic solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer class="footer flex align-center justify-between bg-(--footer-bg) p-4 text-center text-(--footer-text)">
+        <p>&copy; 2026 Prodesk IT. All rights reserved.</p>
+        <div class="social-links mt flex justify-center gap-5">
+            <a href="#" target="_blank">
+                <img src="assets/images/twitter.png" alt="Twitter">
+            </a>
+            <a href="#" target="_blank">
+                <img src="assets/images/instagram.png" alt="Instagram">
+            </a>
+            <a href="#" target="_blank">
+                <img src="assets/images/linkedin.png" alt="LinkedIn">
+            </a>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

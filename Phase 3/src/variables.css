@@ -1,0 +1,42 @@
+:root {  
+    
+    --bg:#0A110E;
+    /* --logo: #0F291E; */
+    --nav-link: #839E92;
+    --nav-bg: #121E1A;
+    --nav-link-hover: #10B981;
+    --nav-link-ham: #121e1acc;
+    --hero-title: #E6F2ED;  
+    --hero-description: #839E92;
+    --cta-btn: #10B981;
+    --cta-hover: #E6F2ED;
+    --cta-text: #0A110E;
+    --service-title: #E6F2ED;
+    --card-bg: #121E1A;
+    --card-title: #10B981;
+    --card-description: #839E92;
+    --footer-bg: #0A110E;
+    --footer-text: #839E92;
+    
+}
+
+.light{
+    
+    
+    --bg:#F7F9F6;
+    --logo: #0F291E;
+    --nav-link: #121E1A;
+    --nav-link-ham: #ffffffcd;
+    --nav-bg: #FFFFFF;
+    --hero-title: #0F291E;  
+    --hero-description: #4A5E54;
+    --cta-btn: #10B981;
+    --cta-hover: #0F291E;
+    --cta-text: #0A110E;
+    --service-title: #0F291E;
+    --card-bg: #f0f0f0;
+    --card-title: #0F291E;
+    --card-description: #4A5E54;
+    --footer-bg: #FFFFFF;
+    --footer-text: #4A5E54;
+}

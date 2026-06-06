@@ -1,3 +1,5 @@
+## Sprint 1
+
 # AI Prompt & Interaction Log
 
 This file logs all AI interactions utilized during the development of Sprint 1: The Corporate Brand, in compliance with the Prodesk IT AI Policy.
@@ -105,3 +107,50 @@ The AI mapped out the semantic division of DOM components. It highlighted that w
 * **Objective**:** Find another way to apply glass effect to nav-links without losing parent blur.
 * **Prompt Used**: "Any other way by which I can apply the glass effect on nav-links?"
 * **Solution Applied**: Pseudo-element trick — `.nav-links::before` with `position: absolute`, `inset: 0`, `backdrop-filter: blur` and `z-index: -1`. Parent stacking context does not affect pseudo-elements painted as a separate layer.
+
+## Sprint 2
+
+# AI Development Prompt Log
+**Project:** Cash-Flow & Expense Tracker Application
+
+This document logs the AI prompts utilized during the development, debugging, and feature enhancement of the application, fulfilling the project requirements.
+
+## Phase 1: Dynamic Data & API Integration
+**Prompt:** "i want that dinamic means if there are n number of currency is calling via api the drop down menu adopt automatically and show us the whole option not a hard coded just 4 or 5 currencies"
+* **Purpose:** Refactored the currency dropdown to dynamically map all available global currencies from the Frankfurter API instead of relying on hardcoded HTML elements.
+
+## Phase 2: Core Debugging & Syntax Fixes
+**Prompt:** "Error calling API: TypeError: Cannot set properties of null (setting 'innerHTML') at fetchFrankfurterData"
+* **Purpose:** Diagnosed and fixed a missing HTML container ID (`currency_options_container`) that the JavaScript was attempting to inject buttons into.
+
+**Prompt:** "Uncaught TypeError: Cannot set properties of null (setting 'innerHTML') at window.changeCurrency"
+* **Purpose:** Resolved a DOM targeting error by verifying and correcting the IDs (`current_currency_label`, `table_body`) across the HTML and JS files.
+
+**Prompt:** `const expense_amount = (document.getElementById("expense_amount")* currentrate).value.trim();` "is this the right format?"
+* **Purpose:** Corrected input value extraction sequence. Ensured the value was extracted and converted to a `Number` before applying the exchange rate multiplier.
+
+**Prompt:** "Cannot access 'INR' before initialization at HTMLButtonElement."
+* **Purpose:** Fixed an object property lookup error by wrapping the key in string literals (`rates['INR']`) so the JS engine wouldn't treat it as an uninitialized variable.
+
+## Phase 3: jsPDF Document Generation
+**Prompt:** "need to add total expense and remaining balance in the pdf"
+* **Purpose:** Injected dynamic total calculations and localized currency formatting into the jsPDF output using the `doc.text()` API.
+
+**Prompt:** "[Uploaded Image of garbled PDF text] this type of text is showing while getting pdf in INR how to fix this"
+* **Purpose:** Resolved a character encoding conflict in jsPDF. Switched `Intl.NumberFormat` from `currencyDisplay: 'symbol'` to `currencyDisplay: 'code'` to prevent hidden HTML directional characters from corrupting the PDF font rendering.
+
+## Phase 4: UI/UX & Responsive Layouts
+
+**Prompt:** "flex and hidden are giving css conflict in the alert banner"
+* **Purpose:** Resolved a Tailwind CSS display property clash by separating the `hidden` toggle and the `md:flex` properties using a dedicated outer wrapper `div`.
+
+## Phase 5: State Management & Data Persistence
+**Prompt:** "while deleting all the list the banner is not removed also after reset the banner not remove"
+* **Purpose:** Added an explicit array-length check (`expense_list.length === 0`) to instantly clear UI alerts when the dashboard is emptied.
+
+**Prompt:** "if am deleting any item from the table the balance must be updated and the recalculation must be done then after decide to show banner or not."
+* **Purpose:** Eliminated floating-point decimal errors during row deletion by replacing standard subtraction with a full `.reduce()` recalculation of the array data.
+
+**Prompt:** "how to add refresh in delete row so as if i delete a row from the table the page must refresh"
+* **Purpose:** Added `window.location.reload();` to the deletion loop to ensure a completely clean UI repaint from local storage.
+

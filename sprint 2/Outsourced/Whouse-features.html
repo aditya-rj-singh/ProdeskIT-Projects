@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Warehouse Safety Hub</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-dark: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+            --warning-amber: #f59e0b;
+            --radius: 8px;
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-dark);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #7f1d1d, var(--danger-red));
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #b91c1c;
+        }
+
+        .emergency-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .emergency-content {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        .emergency-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .emergency-content li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        /* Integrated Inline Error Block */
+        .error-banner {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-red);
+            color: #f87171;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+
+        .creator-panel {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            user-select: none;
+        }
+
+        /* Zones */
+        .zone-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .zone-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--accent-primary);
+            padding-left: 0.5rem;
+        }
+
+        .checklist-group {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 0.85rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .task-item:hover {
+            border-color: #475569;
+        }
+
+        .task-item.critical-task:not(.completed) {
+            border-left: 4px solid var(--danger-red);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: var(--border-color); }
+            50% { border-color: var(--danger-red); }
+            100% { border-color: var(--border-color); }
+        }
+
+        .task-item.completed {
+            border-color: rgba(16, 185, 129, 0.4) !important;
+            border-left: 4px solid var(--success-green) !important;
+            background: rgba(16, 185, 129, 0.04) !important;
+        }
+
+        .task-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.3rem;
+            height: 1.3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            margin-right: 1rem;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .task-checkbox:checked {
+            background-color: var(--success-green) !important;
+            border-color: var(--success-green) !important;
+        }
+
+        .task-checkbox:checked::before {
+            content: "";
+            width: 0.55rem;
+            height: 0.3rem;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg) translate(1px, -1px);
+        }
+
+        .task-content-box {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .task-text {
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .task-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .critical-badge {
+            font-size: 0.7rem;
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            padding: 0.05rem 0.35rem;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        .task-item.completed .task-text {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .action-hub {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        button {
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary { background-color: var(--accent-primary); }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+
+        .btn-success { background-color: var(--success-green); }
+        .btn-success:hover { background-color: #059669; }
+
+        .btn-danger { background-color: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .btn-danger:hover { background-color: var(--danger-red); color: white; }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 3rem 0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="emergency-banner" id="emergency-toggle">
+        <div class="emergency-trigger">
+            <span>⚠️ EMERGENCY PROTOCOLS</span>
+            <span id="emergency-arrow">▼</span>
+        </div>
+        <div class="emergency-content" id="emergency-content">
+            <ul>
+                <li><span>Main Office Radio Channel:</span> <strong>Channel 4-A</strong></li>
+                <li><span>Chemical Spill Unit Hazmat Station:</span> <strong>Aisle 14 Rear</strong></li>
+                <li><span>Facility Power Cut-Off Box:</span> <strong>Dock Door 3 Emergency Corridor</strong></li>
+                <li><span>On-Duty Supervisor Medical Line:</span> <strong>Ext. 9110</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <header>
+        <h1>Warehouse Safety Hub</h1>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Shift Checklist Engine</div>
+    </header>
+
+    <div class="meta-grid">
+        <div>
+            <label for="inspector-name">Inspector Name</label>
+            <input type="text" id="inspector-name" placeholder="Identify inspector...">
+        </div>
+        <div>
+            <label for="shift-phase">Active Shift Window</label>
+            <select id="shift-phase">
+                <option value="First Lockup (22:00)">First Lockup (22:00)</option>
+                <option value="Mid-Shift Walk (02:00)">Mid-Shift Walk (02:00)</option>
+                <option value="Pre-Handover (05:00)">Pre-Handover (05:00)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="creator-panel">
+        <label>Add New Facility Guard Checklist Item</label>
+        <div class="input-row">
+            <input type="text" id="task-input" placeholder="Describe checkpoint action detail...">
+            <select id="zone-input" style="width: 160px; flex-shrink: 0;">
+                <option value="Loading Dock">Loading Dock</option>
+                <option value="Aisle Shelving">Aisle Shelving</option>
+                <option value="Battery Charging">Battery Bay</option>
+                <option value="Cold Storage">Cold Storage</option>
+            </select>
+            <button id="add-task-btn" class="btn-primary">Add</button>
+        </div>
+        
+        <div class="controls-wrapper">
+            <label class="toggle-container">
+                <input type="checkbox" id="critical-input" style="cursor: pointer;"> 
+                Mark as Critical Priority (Immediate Operational Blocker)
+            </label>
+        </div>
+    </div>
+
+    <div class="error-banner" id="validation-error-msg">
+        ⚠️ Reset Blocked: All open Critical Priority inspections must be completed before handover flushing.
+    </div>
+
+    <label style="margin-bottom: 0.75rem;">Active Safety Check Targets</label>
+    <div id="checklist"></div>
+
+    <div class="action-hub">
+        <button class="btn-danger" id="reset-shift-btn">Reset Shift Handover</button>
+        <button class="btn-success" id="export-report-btn">Generate Shift Report</button>
+    </div>
+</div>
+
+<script>
+    // --- Phase 1: Clean Pristine Empty State Initializations ---
+    let tasks = []; 
+
+    const checklistContainer = document.getElementById('checklist');
+    const taskInput = document.getElementById('task-input');
+    const zoneInput = document.getElementById('zone-input');
+    const criticalInput = document.getElementById('critical-input');
+    const addTaskBtn = document.getElementById('add-task-btn');
+    const inspectorInput = document.getElementById('inspector-name');
+    const shiftPhaseSelect = document.getElementById('shift-phase');
+    const errorBanner = document.getElementById('validation-error-msg');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTasks = localStorage.getItem('safety_tasks');
+        if (savedTasks) {
+            tasks = JSON.parse(savedTasks);
+        } else {
+            tasks = [];
+            saveToLocalStorage();
+        }
+        
+        inspectorInput.value = localStorage.getItem('safety_inspector') || '';
+        shiftPhaseSelect.value = localStorage.getItem('safety_shift_phase') || 'First Lockup (22:00)';
+
+        renderTasks();
+    });
+
+    inspectorInput.addEventListener('input', () => localStorage.setItem('safety_inspector', inspectorInput.value));
+    shiftPhaseSelect.addEventListener('change', () => localStorage.setItem('safety_shift_phase', shiftPhaseSelect.value));
+
+    function saveToLocalStorage() {
+        localStorage.setItem('safety_tasks', JSON.stringify(tasks));
+    }
+
+    document.getElementById('emergency-toggle').addEventListener('click', () => {
+        const content = document.getElementById('emergency-content');
+        const arrow = document.getElementById('emergency-arrow');
+        if(content.style.display === 'block') {
+            content.style.display = 'none';
+            arrow.textContent = '▼';
+        } else {
+            content.style.display = 'block';
+            arrow.textContent = '▲';
+        }
+    });
+
+    // --- Phase 2: Object Creation Engine ---
+    function createAndPushTask() {
+        const text = taskInput.value.trim();
+        if (!text) return;
+
+        const newTask = {
+            id: Date.now(),
+            text: text,
+            zone: zoneInput.value,
+            isCompleted: false,
+            critical: criticalInput.checked,
+            log: null
+        };
+
+        tasks.push(newTask);
+        saveToLocalStorage();
+        renderTasks();
+        
+        // Clear inputs and hide the error if an item was added
+        taskInput.value = '';
+        criticalInput.checked = false;
+        taskInput.focus();
+    }
+
+    addTaskBtn.addEventListener('click', createAndPushTask);
+    taskInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') createAndPushTask(); });
+
+    // --- Zone Separation & Render Pipeline ---
+    function renderTasks() {
+        checklistContainer.innerHTML = '';
+
+        if (tasks.length === 0) {
+            checklistContainer.innerHTML = '<div class="empty-state">No checklist parameters found. Add a custom checkpoint configuration above.</div>';
+            return;
+        }
+
+        const zones = ['Loading Dock', 'Aisle Shelving', 'Battery Charging', 'Cold Storage'];
+        
+        zones.forEach(zoneName => {
+            const zoneTasks = tasks.filter(t => t.zone === zoneName);
+            if (zoneTasks.length === 0) return;
+
+            const zoneSection = document.createElement('div');
+            zoneSection.className = 'zone-section';
+
+            const zoneHeader = document.createElement('div');
+            zoneHeader.className = 'zone-header';
+            zoneHeader.textContent = zoneName;
+            zoneSection.appendChild(zoneHeader);
+
+            const ul = document.createElement('ul');
+            ul.className = 'checklist-group';
+
+            zoneTasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = `task-item ${task.isCompleted ? 'completed' : ''} ${task.critical ? 'critical-task' : ''}`;
+                li.setAttribute('data-id', task.id);
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'task-checkbox';
+                checkbox.checked = task.isCompleted;
+
+                const contentBox = document.createElement('div');
+                contentBox.className = 'task-content-box';
+
+                const textSpan = document.createElement('span');
+                textSpan.className = 'task-text';
+                textSpan.textContent = task.text;
+                
+                if (task.critical && !task.isCompleted) {
+                    const critBadge = document.createElement('span');
+                    critBadge.className = 'critical-badge';
+                    critBadge.textContent = 'CRITICAL';
+                    textSpan.appendChild(critBadge);
+                }
+
+                const metaSpan = document.createElement('span');
+                metaSpan.className = 'task-meta';
+                metaSpan.textContent = task.log ? `✓ Logged: ${task.log}` : 'Awaiting Inspection';
+
+                contentBox.appendChild(textSpan);
+                contentBox.appendChild(metaSpan);
+                li.appendChild(checkbox);
+                li.appendChild(contentBox);
+                ul.appendChild(li);
+            });
+
+            zoneSection.appendChild(ul);
+            checklistContainer.appendChild(zoneSection);
+        });
+
+        // Dynamic Error Clearance if all critical items become resolved naturally
+        const criticalPending = tasks.some(t => t.critical && !t.isCompleted);
+        if (!criticalPending) {
+            errorBanner.style.display = 'none';
+        }
+    }
+
+    // --- Phase 3: Fixed Event Delegation Engine ---
+    checklistContainer.addEventListener('click', (event) => {
+        const itemRow = event.target.closest('.task-item');
+        if (!itemRow) return;
+
+        if (event.target.classList.contains('task-checkbox')) {
+            event.stopPropagation();
+        }
+
+        const taskId = parseInt(itemRow.getAttribute('data-id'), 10);
+        const taskObj = tasks.find(t => t.id === taskId);
+
+        if (taskObj) {
+            taskObj.isCompleted = !taskObj.isCompleted;
+            
+            if (taskObj.isCompleted) {
+                const identity = inspectorInput.value.trim() || "Unknown Guard";
+                const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                taskObj.log = `${timeStr} by ${identity}`;
+            } else {
+                taskObj.log = null;
+            }
+
+            saveToLocalStorage();
+            renderTasks();
+        }
+    });
+
+    // --- Export Report ---
+    document.getElementById('export-report-btn').addEventListener('click', () => {
+        const name = inspectorInput.value.trim() || "UNSPECIFIED INSPECTOR";
+        const phase = shiftPhaseSelect.value;
+        const timeStamp = new Date().toLocaleString();
+        
+        let reportText = `========================================\n`;
+        reportText += `OFFLINE WAREHOUSE SAFETY COMPLIANCE REPORT\n`;
+        reportText += `Generated: ${timeStamp}\n`;
+        reportText += `Inspector Record: ${name}\n`;
+        reportText += `Shift Phase Window: ${phase}\n`;
+        reportText += `========================================\n\n`;
+
+        tasks.forEach((t, idx) => {
+            const statusSymbol = t.isCompleted ? "[X]" : "[ ]";
+            const prioritySymbol = t.critical ? "(! CRITICAL)" : "";
+            reportText += `${idx + 1}. ${statusSymbol} ${t.zone} - ${t.text} ${prioritySymbol}\n`;
+            reportText += `   Status Info: ${t.log || "No collection signature recorded"}\n\n`;
+        });
+
+        const blob = new Blob([reportText], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `SafetyReport_${phase.replace(/[^a-z0-9]/gi, '_')}.txt`;
+        link.click();
+    });
+
+    // --- Strict Hardened Reset Action ---
+    document.getElementById('reset-shift-btn').addEventListener('click', () => {
+        const criticalPending = tasks.some(t => t.critical && !t.isCompleted);
+        
+        if (criticalPending) {
+            // Strictly block execution and switch view layer UI immediately 
+            errorBanner.style.display = 'flex';
+            errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            return;
+        }
+
+        // Safe clearance if no critical roadblocks are active
+        errorBanner.style.display = 'none';
+        if (confirm("Are you sure you want to clear current logs to prepare for the oncoming shift handover?")) {
+            tasks = [];
+            saveToLocalStorage();
+            renderTasks();
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Night-Shift Safety Checklist</title>
+    <style>
+        :root {
+            --bg-dark: #121824;
+            --card-dark: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-green: #10b981;
+            --radius: 8px;
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-dark);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .offline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--success-green);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+
+        .meta-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .task-item:hover {
+            border-color: #475569;
+            background: #161f30;
+        }
+
+        .task-item.completed {
+            border-color: rgba(16, 185, 129, 0.2);
+            background: rgba(16, 185, 129, 0.03);
+        }
+
+        .task-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.35rem;
+            height: 1.35rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            margin-right: 1rem;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .task-checkbox:checked {
+            background-color: var(--success-green);
+            border-color: var(--success-green);
+        }
+
+        .task-checkbox:checked::before {
+            content: "";
+            width: 0.6rem;
+            height: 0.35rem;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg) translate(1px, -1px);
+        }
+
+        .task-text {
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: var(--transition);
+            word-break: break-word;
+        }
+
+        .task-item.completed .task-text {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 2rem 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Warehouse Safety Checklist</h1>
+        <div class="offline-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Offline Ready (Auto-Saving)
+        </div>
+    </header>
+
+    <div class="meta-group">
+        <label for="inspector-name">Inspector Name</label>
+        <input type="text" id="inspector-name" placeholder="Enter your name...">
+    </div>
+
+    <label>Add Safety Action Item</label>
+    <div class="input-row">
+        <input type="text" id="task-input" placeholder="e.g., Verify Zone C fire exit clearance...">
+        <button id="add-task-btn">Add Task</button>
+    </div>
+
+    <label>Active Checklist</label>
+    <ul id="checklist"></ul>
+</div>
+
+<script>
+    // --- Phase 1: State Initialization & DOM Cache ---
+    let tasks = [];
+    
+    const checklistElement = document.getElementById('checklist');
+    const taskInput = document.getElementById('task-input');
+    const addTaskBtn = document.getElementById('add-task-btn');
+    const inspectorInput = document.getElementById('inspector-name');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Hydrate checklist tasks from localStorage
+        const savedTasks = localStorage.getItem('safety_tasks');
+        if (savedTasks) {
+            tasks = JSON.parse(savedTasks);
+        }
+        
+        // UX Quality of Life: Retain Inspector state across closures 
+        const savedInspector = localStorage.getItem('safety_inspector');
+        if (savedInspector) {
+            inspectorInput.value = savedInspector;
+        }
+
+        renderTasks();
+    });
+
+    // Mirror inspector name adjustments straight to cache
+    inspectorInput.addEventListener('input', () => {
+        localStorage.setItem('safety_inspector', inspectorInput.value);
+    });
+
+
+    // --- Phase 2: Create & Render Engine ---
+    function saveToLocalStorage() {
+        localStorage.setItem('safety_tasks', JSON.stringify(tasks));
+    }
+
+    function createAndPushTask() {
+        const text = taskInput.value.trim();
+        if (!text) return; // Disallow blank entries
+
+        const newTask = {
+            id: Date.now(), // Unique ID lookup key avoids list indexing drift bugs
+            text: text,
+            isCompleted: false
+        };
+
+        tasks.push(newTask);
+        saveToLocalStorage();
+        renderTasks();
+        
+        taskInput.value = ''; // Flush input space
+        taskInput.focus();
+    }
+
+    addTaskBtn.addEventListener('click', createAndPushTask);
+    
+    // Quick Form Submission Utility via Return Key
+    taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') createAndPushTask();
+    });
+
+    function renderTasks() {
+        checklistElement.innerHTML = '';
+
+        if (tasks.length === 0) {
+            checklistElement.innerHTML = '<li class="empty-state">No tasks listed. Add a safety item above to get started.</li>';
+            return;
+        }
+
+        // Standard Array Execution Blueprint (.forEach Loop)
+        tasks.forEach((task) => {
+            const li = document.createElement('li');
+            li.className = `task-item ${task.isCompleted ? 'completed' : ''}`;
+            li.setAttribute('data-id', task.id);
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'task-checkbox';
+            checkbox.checked = task.isCompleted;
+
+            const span = document.createElement('span');
+            span.className = 'task-text';
+            span.textContent = task.text;
+
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            checklistElement.appendChild(li);
+        });
+    }
+
+
+    // --- Phase 3: Toggling State (Targeted Event Delegation) ---
+    checklistElement.addEventListener('click', (event) => {
+        // Captures broad bounding boxes on row targets for easy tablet tapping
+        const itemRow = event.target.closest('.task-item');
+        if (!itemRow) return;
+
+        const taskId = parseInt(itemRow.getAttribute('data-id'), 10);
+        const taskObj = tasks.find(t => t.id === taskId);
+
+        if (taskObj) {
+            // Flip completion state boolean 
+            taskObj.isCompleted = !taskObj.isCompleted;
+            
+            saveToLocalStorage();
+            renderTasks();
+        }
+    });
+</script>
+</body>
+</html>

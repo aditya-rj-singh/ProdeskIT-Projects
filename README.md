@@ -1,6 +1,7 @@
 Sprint 1 Core: https://sprint-1-core.netlify.app/ 
 
 Sprint 2 Core: https://cash-flow-track.netlify.app/ 
+Sprint 2 Client: https://warehouse-checklist.netlify.app/
 
 
 ![Dark Mode (Dextop)](/screenshot/Default.jpeg)

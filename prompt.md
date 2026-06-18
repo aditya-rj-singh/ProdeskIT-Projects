@@ -156,23 +156,23 @@ This document logs the AI prompts utilized during the development, debugging, an
 
 ## Sprint 3
 
-**Prompt 1 - Debugging Event Listener Error**
+## Prompt 1 - Debugging Event Listener Error
 I am getting:
 Uncaught TypeError: addEventListner is not a function
 Explain the error and show how to fix it.
 
-**Prompt 2 - Debugging Null Reference Error**
+## Prompt 2 - Debugging Null Reference Error
 I am getting:
 Cannot read properties of null (reading 'trim')
 Explain why this happens and how to debug it.
 
-**Prompt 3 - Repository Fetching**
+## Prompt 3 - Repository Fetching
 Show me how to use the repos_url property returned by the GitHub API to fetch repositories.
 
-**Prompt 4 - Battle Mode Design**
+## Prompt 4 - Battle Mode Design
 Explain how Promise.all() works.
 Show the simplest way to compare two GitHub users
 
-**Prompt 5 - Refactoring**
+## Prompt 5 - Refactoring
 How can I avoid duplicating innerHTML for both user cards?
 Show me how to create a reusable profile card function.

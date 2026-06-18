@@ -1,6 +1,6 @@
-## Sprint 1
+# Sprint 1
 
-# AI Prompt & Interaction Log
+## AI Prompt & Interaction Log
 
 This file logs all AI interactions utilized during the development of Sprint 1: The Corporate Brand, in compliance with the Prodesk IT AI Policy.
 
@@ -108,7 +108,7 @@ The AI mapped out the semantic division of DOM components. It highlighted that w
 * **Prompt Used**: "Any other way by which I can apply the glass effect on nav-links?"
 * **Solution Applied**: Pseudo-element trick — `.nav-links::before` with `position: absolute`, `inset: 0`, `backdrop-filter: blur` and `z-index: -1`. Parent stacking context does not affect pseudo-elements painted as a separate layer.
 
-## Sprint 2
+# Sprint 2
 
 # AI Development Prompt Log
 **Project:** Cash-Flow & Expense Tracker Application
@@ -154,7 +154,7 @@ This document logs the AI prompts utilized during the development, debugging, an
 **Prompt:** "how to add refresh in delete row so as if i delete a row from the table the page must refresh"
 * **Purpose:** Added `window.location.reload();` to the deletion loop to ensure a completely clean UI repaint from local storage.
 
-## Sprint 3
+# Sprint 3
 
 ## Prompt 1 - Debugging Event Listener Error
 I am getting:

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GitHub Profile Finder</title>
+        <style>
+            body{
+                font-family:Arial, Helvetica, sans-serif;
+                padding: 20px;
+            }
+            input{
+                padding: 10px;
+                width: 250px;
+            }
+            button{
+                padding: 10px 15px;
+                cursor: pointer;
+            }
+            .card{
+                margin-top: 20px;
+                border: 1px solid #ddd;
+                padding: 20px;
+                width: 350px;
+                border-radius: 10px;
+            }
+            img{
+                width: 120px;
+                border-radius: 10px;
+            }
+            .error{
+                color: red;
+                font-weight: bold;
+            }
+            .loading{
+                color: blue;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>GitHub Profile Finder</h1>
+
+        <input type="text" id="username" placeholder="GitHub Username">
+        <button id="searchBtn">Search</button>
+        
+        <p id="loading"></p>
+        <div id="profile"></div>
+
+        <script src="main.js"></script>
+
+    </body>
+</html>
+
+

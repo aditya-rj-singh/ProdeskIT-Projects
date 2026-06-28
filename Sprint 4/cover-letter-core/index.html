@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ai-cover-letter</title>
+  </head>
+  <body class="bg-slate-100 min-h-screen">
+    <main class="container mx-auto px-4 py-8">
+      <header class="mb-8">
+        <h1 class="text-4xl font-bold text-slate-900">
+          AI Cover Letter Generator
+        </h1>
+        <p class="text-slate-600 mt-2">
+          Generate professional cover letter using AI.
+        </p>
+      </header>
+
+      <section class="grid lg:grid-cols-2 gap-6">
+        <aside class="bg-white rounded-2xl shadow-sm p-6">
+          
+          <form id="cover-letter-form" class="space-y-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-slate-700 mb-2">
+                Candidate Name
+              </label>
+              <input id="name" name="name" type="text" required placeholder="Rishi Kumar" class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-slate-900"/>
+            </div>
+
+            <div>
+              <label for="role" class="block text-sm font-medium text-slate-700 mb-2">
+                Job Role
+              </label>
+              <input id="role" name="role" type="text" required placeholder="Software Developer" class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-slate-900"/>
+            </div>
+
+            <div>
+              <label for="company" class="block text-sm font-medium text-slate-700 mb-2">
+                Target Company
+              </label>
+              <input id="company" name="company" type="text" required placeholder="X" class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-slate-900"/>
+            </div>
+            
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="skills" class="block text-sm font-medium text-slate-700">
+                  Key Skills
+                </label>
+                <span id="skills-counter" class="text-xs text-slate-500">0/500</span>
+              </div>
+              <textarea id="skills" name="skills" rows="6" maxlength="500" placeholder="HTML, React, Tailwind CSS, Git..." class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none resize-none focus:ring-2 focus:ring-slate-900"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">
+                Upload REsume (PDF)
+              </label>
+              <input id="resume" type="file" accept=".pdf" class="block w-full text-sm border border-slate-300 rounded-lg p-3"/>
+              <p id="resume-status" class="text-xs text-slate-400 mt-2">
+                No resume uploaded
+              </p>
+            </div>
+
+            <div id="error-msg" class="hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            </div>
+
+            <button id="submit" type="submit" class="w-full cursor-pointer rounded-lg bg-slate-900 text-white py-3 font-medium hover:bg-black transition">
+              Generate
+            </button>
+          </form>
+        </aside>
+
+        <section class="bg-white rounded-2xl shadow-sm p-6 flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-slate-900">
+              Cover Letter 
+            </h2>
+            <div class="flex gap-2">
+              <button id="regenerate-btn" type="button" disabled class="px-4 py-2 cursor-pointer rounded-xl border border-slate-300 text-sm">
+                Regenerate
+              </button>
+
+              <button id="copy" type="button" disabled class="px-4 py-2 cursor-pointer rounded-lg text-sm ">
+                <span id="copy-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24" style="color: rgb(74, 85, 101);"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M18.327 7.286h-8.044a1.93 1.93 0 0 0-1.925 1.938v10.088c0 1.07.862 1.938 1.925 1.938h8.044a1.93 1.93 0 0 0 1.925-1.938V9.224c0-1.07-.862-1.938-1.925-1.938"></path><path d="M15.642 7.286V4.688c0-.514-.203-1.007-.564-1.37a1.92 1.92 0 0 0-1.361-.568H5.673c-.51 0-1 .204-1.36.568a1.95 1.95 0 0 0-.565 1.37v10.088c0 .514.203 1.007.564 1.37s.85.568 1.361.568h2.685"></path></g></svg>
+                </span>
+                <span id="check-icon" class="hidden">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 16 16" style="color: rgb(74, 85, 101);"><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" points="2.75 8.75 6.25 12.25 13.25 4.75"></polyline></svg>                
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div id="loading-state" class="hidden text-slate-500 text-sm mb-4">
+            Generating you cover letter...
+          </div>
+
+          <div id="output" class="flex-1 border border-slate-200 rounded-xl p-5 overflow-y-scroll scrollbar-thin max-h-150">
+            <div id="empty-state" class="h-full flex items-center justify-center text-center text-slate-400">
+              <p>
+                Fill out the form and click
+                <strong>Generate</strong>
+                to get started.
+              </p>
+            </div>
+
+            <article id="cover-letter-content" class="prose max-w-none hidden"></article>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

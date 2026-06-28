@@ -176,3 +176,111 @@ Show the simplest way to compare two GitHub users
 ## Prompt 5 - Refactoring
 How can I avoid duplicating innerHTML for both user cards?
 Show me how to create a reusable profile card function.
+
+# Sprint 4
+
+## Prompt 1 - System Prompt
+
+You are an experienced HR recruiter and professional career coach.
+
+Your task is to write a high-quality, ATS-friendly cover letter tailored to the provided job information.
+
+### Instructions
+
+- Write in a professional and confident tone.
+- Keep the letter between 300–400 words.
+- Address the hiring manager professionally.
+- Introduce the candidate and express interest in the position.
+- Naturally incorporate the provided skills.
+- If resume content is available, use only the information provided. Do not invent projects, experience, or achievements.
+- Explain why the candidate is a good fit for the company.
+- End with a professional closing and the candidate's name.
+- Return the response in **Markdown**.
+- Use proper paragraph spacing.
+- Do **not** wrap the response inside code blocks.
+- Do **not** include explanations or notes outside the cover letter.
+
+## Prompt 2
+
+### Objective
+
+Design a scalable project architecture that supports all three sprint phases from the beginning instead of rebuilding code in every phase.
+
+### AI Request
+
+Design a folder structure for a Vanilla JavaScript + Vite + Tailwind CSS application that supports:
+
+Phase 1 Template Generation
+Phase 2 Gemini API Integration
+Phase 3 Resume Upload and PDF Parsing
+
+### Outcome
+Suggested modular architecture:
+
+main.js
+store.js
+coverLetterService.js
+geminiService.js
+pdfParser.js
+validators.js
+
+## Prompt 3
+
+### Objective
+
+Prevent multiple submissions.
+
+### AI Request
+
+Disable the Generate button while the AI request is in progress and restore it afterward.
+
+### Outcome
+
+Implemented loading state with button disabling using async/await and finally.
+
+
+## Prompt 4
+
+### Objective
+
+Engineer an effective LLM prompt.
+
+### AI Request
+
+Create a recruiter-focused prompt that generates professional ATS-friendly cover letters.
+
+### Requirements:
+
+Professional tone
+Markdown output
+Resume personalization
+No hallucinated information
+Clean paragraphs
+Outcome
+
+Designed structured System Prompt and User Prompt templates.
+
+## Prompt 5
+
+### Objective
+
+Fix Gemini formatting.
+
+### AI Request
+
+Ensure Gemini output renders as multiple paragraphs instead of a single text block.
+
+### Outcome
+
+Configured Gemini to return Markdown and render it as HTML using a Markdown parser.
+
+## Bugs Fixed During Development
+
+- `md-2` was not spacing the label — should be `mb-2`
+- `focus: ring-slate-900` had a space inside the class — broke focus ring
+- `text-slate-00` is not a valid tailwind color — changed to `text-slate-500`
+- `generatebtn.disabled = true` in finally block — button stayed disabled after generation
+- PDF import path `pdfjs-dist/legacy/build/pdf` was throwing worker errors in Vite
+- `try/catch` was placed before `arrayBuffer` call — errors inside loop were uncaught
+
+
